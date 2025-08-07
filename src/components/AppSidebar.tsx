@@ -1,10 +1,11 @@
 import { 
   Home, 
-  Compass, 
-  Grid3X3, 
-  User, 
-  ArrowUp, 
-  Download 
+  History, 
+  FileText, 
+  Pill, 
+  Heart, 
+  Settings,
+  User
 } from "lucide-react";
 import {
   Sidebar,
@@ -20,11 +21,13 @@ import {
 
 const navigationItems = [
   { title: "Home", icon: Home, url: "/" },
-  { title: "Discover", icon: Compass, url: "/discover" },
-  { title: "Spaces", icon: Grid3X3, url: "/spaces" },
-  { title: "Account", icon: User, url: "/account" },
-  { title: "Upgrade", icon: ArrowUp, url: "/upgrade" },
-  { title: "Install", icon: Download, url: "/install" },
+];
+
+const historyItems = [
+  { title: "Differential diagnosis for chest pain", url: "/history/1" },
+  { title: "ACE inhibitor dosing guidelines", url: "/history/2" },
+  { title: "Latest hypertension treatment protocols", url: "/history/3" },
+  { title: "Drug interactions with metformin", url: "/history/4" },
 ];
 
 export function AppSidebar() {
@@ -35,10 +38,6 @@ export function AppSidebar() {
     <Sidebar className={`${collapsed ? "w-14" : "w-64"} border-r border-border`}>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className={`${collapsed ? "hidden" : "block"} text-muted-foreground`}>
-            Navigation
-          </SidebarGroupLabel>
-          
           <SidebarGroupContent>
             <SidebarMenu>
               {navigationItems.map((item) => (
@@ -57,6 +56,58 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel className={`${collapsed ? "hidden" : "block"} text-muted-foreground`}>
+            History
+          </SidebarGroupLabel>
+          
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {historyItems.map((item, index) => (
+                <SidebarMenuItem key={index}>
+                  <SidebarMenuButton asChild className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                    <a href={item.url} className="text-sm text-muted-foreground hover:text-foreground">
+                      {!collapsed && <span className="truncate">{item.title}</span>}
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <div className="mt-auto">
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                    <a href="/settings" className="flex items-center gap-3">
+                      <Settings className="h-4 w-4" />
+                      {!collapsed && <span>Settings</span>}
+                    </a>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground">
+                    <div className="flex items-center gap-3 py-2">
+                      <div className="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                        <span className="text-xs text-primary-foreground font-bold">DS</span>
+                      </div>
+                      {!collapsed && (
+                        <div className="flex flex-col">
+                          <span className="text-sm font-medium">Dr. Smith</span>
+                          <span className="text-xs text-muted-foreground">Cardiologist</span>
+                        </div>
+                      )}
+                    </div>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </div>
       </SidebarContent>
     </Sidebar>
   );

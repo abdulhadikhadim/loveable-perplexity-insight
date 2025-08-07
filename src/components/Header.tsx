@@ -18,7 +18,12 @@ export function Header() {
     <header className="h-14 border-b border-border bg-card flex items-center justify-between px-4">
       <div className="flex items-center gap-4">
         <SidebarTrigger />
-        <h1 className="text-xl font-bold text-foreground">Loveable AI</h1>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
+            <span className="text-xs text-primary-foreground font-bold">+</span>
+          </div>
+          <h1 className="text-xl font-bold text-foreground">ClarosMed</h1>
+        </div>
       </div>
       
       <Button 
