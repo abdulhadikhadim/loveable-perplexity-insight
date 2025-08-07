@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Search, Plus, Upload, Activity, FileText, Pill, Stethoscope } from "lucide-react";
+import { Search, Mic, Paperclip, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Switch } from "@/components/ui/switch";
 
 interface SearchInterfaceProps {
   onSearch: (query: string) => void;
@@ -24,16 +23,11 @@ export function SearchInterface({ onSearch, isSearching }: SearchInterfaceProps)
     <div className="flex-1 flex flex-col items-center justify-center px-4 max-w-4xl mx-auto w-full">
       {/* Main Title */}
       <div className="text-center mb-12">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-            <Plus className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <h1 className="text-5xl font-bold text-foreground">
-            ClarosMed
-          </h1>
-        </div>
+        <h1 className="text-5xl font-bold text-foreground mb-4">
+          Loveable AI
+        </h1>
         <p className="text-xl text-muted-foreground">
-          Ask anything medical
+          Ask anything, get intelligent answers
         </p>
       </div>
 
@@ -42,7 +36,7 @@ export function SearchInterface({ onSearch, isSearching }: SearchInterfaceProps)
         <div className="relative">
           <Input
             type="text"
-            placeholder="Ask about labs, imaging, guidelines..."
+            placeholder="Ask anything or @mention a Space..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full h-14 pl-4 pr-16 text-lg border-primary/30 focus:border-primary bg-card"
@@ -59,30 +53,19 @@ export function SearchInterface({ onSearch, isSearching }: SearchInterfaceProps)
         </div>
       </form>
 
-      {/* Quick/Pro Toggle */}
-      <div className="flex items-center gap-2 mb-6">
-        <span className="text-sm text-muted-foreground">Quick</span>
-        <Switch />
-        <span className="text-sm text-muted-foreground">Pro</span>
-      </div>
-
-      {/* Medical Action Buttons */}
-      <div className="flex items-center gap-4 flex-wrap justify-center">
-        <Button variant="secondary" className="flex items-center gap-2 px-4 py-2">
-          <Activity className="h-4 w-4" />
-          <span>Lab Results</span>
+      {/* Action Buttons */}
+      <div className="flex items-center gap-4 p-4 bg-card border border-border rounded-lg">
+        <Button variant="ghost" size="icon" className="hover:bg-accent">
+          <Search className="h-5 w-5" />
         </Button>
-        <Button variant="secondary" className="flex items-center gap-2 px-4 py-2">
-          <FileText className="h-4 w-4" />
-          <span>Guidelines</span>
+        <Button variant="ghost" size="icon" className="hover:bg-accent">
+          <Mic className="h-5 w-5" />
         </Button>
-        <Button variant="secondary" className="flex items-center gap-2 px-4 py-2">
-          <Pill className="h-4 w-4" />
-          <span>Drug Info</span>
+        <Button variant="ghost" size="icon" className="hover:bg-accent">
+          <Paperclip className="h-5 w-5" />
         </Button>
-        <Button variant="secondary" className="flex items-center gap-2 px-4 py-2">
-          <Stethoscope className="h-4 w-4" />
-          <span>Diagnostics</span>
+        <Button variant="ghost" size="icon" className="hover:bg-accent">
+          <Settings className="h-5 w-5" />
         </Button>
       </div>
 
