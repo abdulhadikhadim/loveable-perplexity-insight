@@ -37,28 +37,67 @@ export function ChatArea({ conversation, onSearch, isSearching }: ChatAreaProps)
         {conversation.map((message, index) => (
           <div key={index} className="space-y-4">
             {message.type === 'query' ? (
-              <div className="bg-card border border-border rounded-lg p-4">
-                <p className="font-medium text-foreground">{message.content}</p>
+              <div className="bg-blue-600 text-white rounded-lg p-3 inline-block max-w-fit">
+                <div className="flex items-center gap-2">
+                  <span className="bg-blue-700 rounded px-2 py-1 text-xs">Q</span>
+                  <p className="font-medium">{message.content}</p>
+                </div>
               </div>
             ) : (
               <div className="space-y-4">
                 {/* Response Tabs */}
                 <Tabs defaultValue="answer" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 bg-muted">
-                    <TabsTrigger value="answer">Answer</TabsTrigger>
-                    <TabsTrigger value="sources">Sources</TabsTrigger>
-                    <TabsTrigger value="steps">Steps</TabsTrigger>
+                  <TabsList className="grid w-full grid-cols-3 bg-gray-800 border-gray-600">
+                    <TabsTrigger value="answer" className="text-white data-[state=active]:bg-gray-700 data-[state=active]:text-white">Answer</TabsTrigger>
+                    <TabsTrigger value="steps" className="text-gray-400 data-[state=active]:bg-gray-700 data-[state=active]:text-white">Steps</TabsTrigger>
+                    <TabsTrigger value="sources" className="text-gray-400 data-[state=active]:bg-gray-700 data-[state=active]:text-white">Source Tools</TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="answer" className="mt-4">
-                    <div className="bg-card border border-border rounded-lg p-6">
-                      <p className="text-foreground leading-relaxed">{message.content}</p>
+                    <div className="bg-gray-800 border border-gray-600 rounded-lg p-6 text-white">
+                      <div className="mb-4">
+                        <span className="bg-blue-600 text-white px-2 py-1 rounded text-xs">Clinical Guidelines</span>
+                        <span className="bg-gray-600 text-white px-2 py-1 rounded text-xs ml-2">assessment</span>
+                        <span className="bg-gray-600 text-white px-2 py-1 rounded text-xs ml-2">nexus-dx</span>
+                      </div>
+                      <div className="space-y-4">
+                        <p className="leading-relaxed">{message.content}</p>
+                        
+                        {/* Medical Response Example */}
+                        <div className="space-y-4">
+                          <p className="font-semibold">**1. Type 1 Diabetes Mellitus**</p>
+                          <p className="text-blue-400">ICD-10 Code: E10.9</p>
+                          <p className="text-gray-300">
+                            <strong>Rationale:</strong> Characterized by autoimmune destruction of pancreatic β-cells, leading to absolute insulin deficiency. 
+                            Presents with rapid weight loss, polyuria, polydipsia, and blurred vision due to hyperglycemia.
+                          </p>
+                          
+                          <p className="font-semibold">**2. Type 2 Diabetes Mellitus**</p>
+                          <p className="text-blue-400">ICD-10 Code: E11.9</p>
+                          <p className="text-gray-300">
+                            <strong>Rationale:</strong> Involves insulin resistance and relative insulin deficiency. Though more gradual in onset, it can present with 
+                            polyuria, polydipsia, and blurred vision, especially if previously undiagnosed. Often detected in adults during symptom flare-ups.
+                          </p>
+                          
+                          <p className="font-semibold">**3. Central Diabetes Insipidus**</p>
+                          <p className="text-blue-400">ICD-10 Code: E23.2</p>
+                          <p className="text-gray-300">
+                            <strong>Rationale:</strong> Caused by a deficiency of antidiuretic hormone (ADH), resulting in hypotonic polyuria and compensatory 
+                            polydipsia. Weight loss and blurred vision may occur secondarily due to dehydration.
+                          </p>
+                          
+                          <p className="text-gray-300 mt-4">
+                            If you need guideline-based management, medication options, or lab test interpretation for any of these conditions, feel 
+                            free to ask!
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </TabsContent>
                   
                   <TabsContent value="sources" className="mt-4">
-                    <div className="bg-card border border-border rounded-lg p-6">
-                      <h3 className="font-medium text-foreground mb-4">Sources</h3>
+                    <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                      <h3 className="font-medium text-white mb-4">Source Tools</h3>
                       <div className="space-y-3">
                         {message.sources?.map((source, idx) => (
                           <a
@@ -66,12 +105,12 @@ export function ChatArea({ conversation, onSearch, isSearching }: ChatAreaProps)
                             href={source.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
+                            className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-700 transition-colors"
                           >
-                            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                              <div className="w-3 h-3 bg-primary rounded-full"></div>
+                            <div className="w-8 h-8 bg-blue-600/20 rounded-full flex items-center justify-center">
+                              <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
                             </div>
-                            <span className="text-foreground hover:text-primary">{source.name}</span>
+                            <span className="text-gray-300 hover:text-blue-400">{source.name}</span>
                           </a>
                         ))}
                       </div>
@@ -79,15 +118,15 @@ export function ChatArea({ conversation, onSearch, isSearching }: ChatAreaProps)
                   </TabsContent>
                   
                   <TabsContent value="steps" className="mt-4">
-                    <div className="bg-card border border-border rounded-lg p-6">
-                      <h3 className="font-medium text-foreground mb-4">Steps</h3>
+                    <div className="bg-gray-800 border border-gray-600 rounded-lg p-6">
+                      <h3 className="font-medium text-white mb-4">Steps</h3>
                       <ol className="space-y-3">
                         {message.steps?.map((step, idx) => (
                           <li key={idx} className="flex items-start gap-3">
-                            <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-medium">
+                            <span className="flex-shrink-0 w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-medium">
                               {idx + 1}
                             </span>
-                            <span className="text-foreground">{step}</span>
+                            <span className="text-gray-300">{step}</span>
                           </li>
                         ))}
                       </ol>
@@ -108,21 +147,21 @@ export function ChatArea({ conversation, onSearch, isSearching }: ChatAreaProps)
       </div>
 
       {/* Follow-up Input */}
-      <div className="border-t border-border pt-4 pb-6">
+      <div className="border-t border-gray-700 pt-4 pb-6">
         <form onSubmit={handleFollowUp} className="relative">
           <Input
             type="text"
-            placeholder="Ask follow-up..."
+            placeholder="Ask a follow-up..."
             value={followUpQuery}
             onChange={(e) => setFollowUpQuery(e.target.value)}
-            className="w-full h-12 pr-12 bg-card border-border"
+            className="w-full h-12 pr-12 bg-gray-800 border-gray-600 text-white placeholder:text-gray-400"
             disabled={isSearching}
           />
           <Button
             type="submit"
             size="icon"
             disabled={!followUpQuery.trim() || isSearching}
-            className="absolute right-2 top-2 h-8 w-8 bg-primary hover:bg-primary/90"
+            className="absolute right-2 top-2 h-8 w-8 bg-blue-600 hover:bg-blue-700"
           >
             <Send className="h-4 w-4" />
           </Button>
